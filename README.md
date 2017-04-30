@@ -5,7 +5,7 @@ The package opt_cap_res (optimal capacity reservation) is for reserving link cap
 ```
 minimize    p^T r
 subject to  AF(s) + s = 0, 0 <= F(s) <= r, ∀s ∈ S
-            r ≤ c.
+            r <= c.
 ```
 The price vector ```p```, the graph incidence matrix ```A```, the set of source vectors ```S```, and the edge capacity vector ```c``` are given, and the variables to be determined are the flow policy ```F``` and the reservation vector ```r```.
 
