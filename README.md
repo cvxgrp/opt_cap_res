@@ -21,13 +21,13 @@ Illustrative example
 In a simple example we have ```n = 5``` nodes, ```m = 10``` edges, and ```K = 8``` scenarios. 
 The randomly generated graph is as follows.
 
-![Graph](/figures/graph.pdf?raw=true "Graph")
+![Graph](/figures/graph.png?raw=true "Graph")
 
 We use price vector ```p = 1``` and capacity vector ```c = 1```. The scenario source vectors were randomly generated.
 
 The optimal reservation cost is ```6.0```, and the objective of the heuristic policy is ```7.6```. (The lower bound from the heuristic policy is ```2.3```.) The optimal and heuristic flow policies are shown in the following figure. 
 
-![edge_flows](/figures/edge_flows.pdf?raw=true "Edge flows")
+![edge_flows](/figures/edge_flows.png?raw=true "Edge flows")
 
 The upper plot shows the optimal policy, and the lower plot shows the heuristic policy. For each plot, the bars show the flow policy; the 10 groups are the edges, and the 8 bars are the edge flows under each scenario. The line above each group of bars is the reservation for that edge.
 
