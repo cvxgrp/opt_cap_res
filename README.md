@@ -1,13 +1,13 @@
 opt_cap_res
 ====
 
-The package opt_cap_res (optimal capacity reservation) is for reserving link capacity in a network in such a way that any of a given set of flow scenarios can be supported. It solves the following problem
+The Python package opt_cap_res (optimal capacity reservation) is for reserving link capacity in a network in such a way that any of a given set of flow scenarios can be supported. It solves the following problem
 ```
 minimize    p^T r
-subject to  AF(s) + s = 0, 0 <= F(s) <= r, ∀s ∈ S
+subject to  A f^(k) = s^(k), 0 <= f^(k) <= r, k = 1, ..., K,
             r <= c.
 ```
-The price vector ```p```, the graph incidence matrix ```A```, the finite set of source vectors ```S```, and the edge capacity vector ```c``` are given, and the variables to be determined are the flow policy ```F``` and the reservation vector ```r```.
+The price vector ```p```, the graph incidence matrix ```A```, the source vectors ```s^(k), k = 1, ..., K```, and the edge capacity vector ```c``` are given, and the variables to be determined are the flow policy ```f^(k), k = 1, ..., K```, and the reservation vector ```r```.
 
 For more information please see our paper [A Distributed Method for Optimal Capacity Reservation](https://stanford.edu/~boyd/papers/opt_cap_res.html).
 
@@ -21,13 +21,22 @@ Illustrative example
 In a simple example we have ```n = 5``` nodes, ```m = 10``` edges, and ```K = 8``` scenarios. 
 The randomly generated graph is as follows.
 
-![Graph](/figures/graph.png?raw=true "Graph")
+<img src="/figures/graph.png" alt="Graph" width="300" height="300"/>
 
 We use price vector ```p = 1``` and capacity vector ```c = 1```. The scenario source vectors were randomly generated.
 
-The optimal reservation cost is ```6.0```, and the objective of the heuristic policy is ```7.6```. (The lower bound from the heuristic policy is ```2.3```.) The optimal and heuristic flow policies are shown in the following figure. 
+The code to call the solving method is as follows.
+```python
+prob = CapResProb(A, S, p, c)
+F, Pi, U, L = prob.solve_admm()
+```
+The result gives flow policy matrix ```F```, the scenario prices ```Pi```, and upper and lower bounds on the objective ```U``` and ```L```.
 
-![edge_flows](/figures/edge_flows.png?raw=true "Edge flows")
+The optimal reservation cost is ```6.0```, and the cost of a heuristic flow policy, which greedily minimizes the
+cost for each source separately but does not coordinate the flows for the different sources to reduce the reservation cost,
+is ```7.6```. (The lower bound from the heuristic policy is ```2.3```.) The optimal and heuristic flow policies are shown in the following figure. 
+
+<img src="/figures/edge_flows.png" alt="Edge flows" width="600" height="400"/>
 
 The upper plot shows the optimal policy, and the lower plot shows the heuristic policy. For each plot, the bars show the flow policy; the 10 groups are the edges, and the 8 bars are the edge flows under each scenario. The line above each group of bars is the reservation for that edge.
 
